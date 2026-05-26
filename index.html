@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KhatibAI - Pembuat Khutbah Otomatis</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #f8f9fa; font-family: 'Segoe UI', sans-serif; }
+        .card { border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .khutbah-output { background-color: #fff; border-left: 5px solid #198754; padding: 20px; white-space: pre-line; }
+        @media print {
+            /* Sembunyikan semua elemen kecuali kotak naskah khutbah */
+            body * {
+                visibility: hidden;
+            }
+            #output, #output * {
+                visibility: visible;
+            }
+            /* Atur posisi naskah khutbah agar rapi di kertas/PDF */
+            #output {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                border-left: none;
+                font-size: 14pt;
+                line-height: 1.8;
+                color: #000;
+                }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container py-5">
+    <div class="text-center mb-5">
+        <h1 class="fw-bold text-success">🕌 KhatibAI</h1>
+        <p class="text-muted">Generator Khutbah Otomatis Berbasis Rukun & Syariat</p>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-md-5">
+            <div class="card p-4">
+                <h4 class="mb-3 text-secondary">Pengaturan Khutbah</h4>
+                
+                <div class="mb-3">
+                    <label class="form-label">Tema / Topik Khutbah</label>
+                    <input type="text" id="topic" class="form-control" placeholder="Contoh: Ketakwaan, Silaturahmi">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Durasi Khutbah</label>
+                    <select id="duration" class="form-select">
+                        <option value="pendek">Pendek (7 - 10 Menit)</option>
+                        <option value="sedang" selected>Sedang (10 - 15 Menit)</option>
+                        <option value="panjang">Panjang (15 - 20 Menit)</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+    <label class="form-label">Bahasa Pengantar (Isi)</label>
+    <select id="language" class="form-select">
+        <option value="Indonesia yang santun dan menyentuh hati" selected>Bahasa Indonesia (Santun)</option>
+        <option value="Jawa Kromo (Alus)">Bahasa Jawa (Kromo Alus)</option>
+        <option value="Sunda Lemes">Bahasa Sunda (Lemes)</option>
+    </select>
+</div>
+
+                <button onclick="generateKhutbah()" class="btn btn-success w-100 fw-bold py-2">Hasilkan Khutbah ✨</button>
+            </div>
+        </div>
+
+        <div class="col-md-7">
+            <div class="card p-4 h-100">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="text-secondary m-0">Naskah Khutbah</h4>
+                    <button onclick="copyToClipboard()" class="btn btn-outline-secondary btn-sm">Salin Teks</button>
+                    <button onclick="printKhutbah()" class="btn btn-primary btn-sm">Cetak / PDF 🖨️</button>
+                </div>
+                
+                <div id="output" class="khutbah-output text-muted">
+                    Silakan masukkan tema dan klik "Hasilkan Khutbah" untuk membuat teks otomatis.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
