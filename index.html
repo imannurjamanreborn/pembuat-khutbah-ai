@@ -86,6 +86,57 @@
     </div>
 </div>
 
-<script src="app.js"></script>
+<script>
+    async function generateKhutbah() {
+        const topic = document.getElementById('topic').value;
+        const duration = document.getElementById('duration').value;
+        const language = document.getElementById('language').value;
+        const outputDiv = document.getElementById('output');
+
+        if (!topic) {
+            alert('Silakan masukkan tema/topik khutbah terlebih dahulu!');
+            return;
+        }
+
+        outputDiv.innerHTML = `<div class="text-center py-5">
+            <div class="spinner-border text-success" role="status"></div>
+            <p class="mt-2 text-success fw-bold">Sedang merangkai naskah khutbah terbaik... Mohon tunggu sebentar...</p>
+        </div>`;
+
+        try {
+            // Kita arahkan fetch ke rute API Vercel (/api/generate)
+            const response = await fetch('/api/generate', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ topic, duration, language })
+            });
+
+            const data = await response.json();
+            
+            if (data.success) {
+                outputDiv.classList.remove('text-muted');
+                outputDiv.innerHTML = data.khutbah;
+            } else {
+                outputDiv.innerHTML = `<span class="text-danger">Gagal menghasilkan khutbah: ${data.error || 'Terjadi kesalahan sistem.'}</span>`;
+            }
+        } catch (error) {
+            outputDiv.innerHTML = `<span class="text-danger">Terjadi kesalahan koneksi ke server. Pastikan API Key sudah benar.</span>`;
+            console.error(error);
+        }
+    }
+
+    function copyToClipboard() {
+        const outputText = document.getElementById('output').innerText;
+        navigator.clipboard.writeText(outputText).then(() => {
+            alert('Naskah khutbah berhasil disalin ke memori laptop!');
+        }).catch(err => {
+            alert('Gagal menyalin teks.');
+        });
+    }
+
+    function printKhutbah() {
+        window.print();
+    }
+</script>
 </body>
 </html>
