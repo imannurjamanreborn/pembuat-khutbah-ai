@@ -10,27 +10,33 @@
         .card { border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
         .khutbah-output { background-color: #fff; border-left: 5px solid #198754; padding: 20px; white-space: pre-line; }
         
-        /* PENGATURAN CETAK BARU (ANTI SPACE KOSONG) */
+        /* PERBAIKAN TOTAL MODE CETAK */
         @media print {
-            /* Sembunyikan semua elemen bawaan website */
-            body * {
+            /* Sembunyikan elemen dekorasi yang tidak penting secara aman */
+            .text-center.mb-5, .col-md-5, .btn-outline-secondary, .btn-primary {
                 display: none !important;
             }
-            /* Hanya tampilkan naskah khutbah beserta isinya */
-            #output, #output * {
-                display: block !important;
+            
+            /* Ubah latar belakang body jadi putih bersih */
+            body {
+                background-color: #fff !important;
             }
-            /* Paksa teks naskah langsung naik ke halaman pertama secara rapi */
+
+            /* Paksa kotak naskah khutbah melebar penuh dan langsung mulai di halaman 1 paling atas */
             #output {
-                position: relative !important;
+                position: fixed !important; /* Trik agar mengunci posisi paling atas kertas */
+                top: 0 !important;
+                left: 0 !important;
                 width: 100% !important;
-                margin: 0 !important;
+                height: auto !important;
                 padding: 0 !important;
+                margin: 0 !important;
                 border-left: none !important;
                 font-size: 14pt;
                 line-height: 1.8;
                 color: #000;
                 white-space: pre-line;
+                background-color: #fff !important;
             }
         }
     </style>
