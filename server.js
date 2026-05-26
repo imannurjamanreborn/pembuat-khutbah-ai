@@ -7,30 +7,29 @@ const { GoogleGenAI } = require('@google/genai');
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
 const app = express();
-const PORT = 3000;
 
 app.use(cors());
 app.use(express.json());
 
-// Supaya server bisa membaca dan menampilkan file index.html dan app.js kita
+// Supaya server bisa membaca file HTML utama
 app.use(express.static(__dirname));
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html');
 });
 
-// 2. Endpoint utama pembuat khutbah
-app.post('/api/generate-khutbah', async (req, res) => {
+// 2. Endpoint utama pembuat khutbah (Sudah disinkronkan jalurnya dengan tombol HTML)
+app.post('/api/generate', async (req, res) => {
     const { topic, duration, language } = req.body;
 
     if (!topic) {
-        return res.status(400).json({ error: 'Tema khutbah wajib diisi!' });
+        return res.status(400).json({ success: false, error: 'Tema khutbah wajib diisi!' });
     }
 
     try {
         console.log(`AI sedang merumuskan khutbah tentang: ${topic} (Bahasa: ${language})`);
 
-        // 3. Merancang instruksi (Prompt) yang ketat di dalam backtick (`)
+        // 3. Merancang instruksi (Prompt) yang ketat
         const promptKhatib = `
           Strict Rule: Seluruh materi khutbah wajib ditulis dan disampaikan dalam ${language}! Jangan gunakan Bahasa Indonesia sama sekali untuk narasi khutbah.
           
@@ -58,23 +57,23 @@ app.post('/api/generate-khutbah', async (req, res) => {
           4. Penutup Khutbah Kedua.
 
           Ingat: Konsisten! Jika user memilih ${language}, jangan ada satu kalimat pun yang bocor menggunakan Bahasa Indonesia di bagian isi khutbah.
+          Buatlah secara padat, padat rukunnya, efektif, dan langsung ke inti agar proses berpikir AI cepat di server.
         `;
 
-        // 4. Perintahkan Gemini untuk berpikir menggunakan model terbarunya
+        // 4. Perintahkan Gemini untuk berpikir
         const response = await ai.models.generateContent({
             model: 'gemini-2.5-flash',
             contents: promptKhatib,
         });
 
-        // 5. Kirim hasilnya ke frontend
-        res.json({ text: response.text });
+        // 5. Kirim hasilnya ke frontend (Format disamakan dengan index.html)
+        res.json({ success: true, khutbah: response.text });
 
     } catch (error) {
         console.error("Terjadi error pada AI:", error);
-        res.status(500).json({ error: 'Ups, AI kami sedang lelah. Silakan coba sesaat lagi.' });
+        res.status(500).json({ success: false, error: 'Ups, AI kami sedang lelah. Silakan coba sesaat lagi.' });
     }
 });
 
-app.listen(PORT, () => {
-    console.log(`Server AI berhasil berjalan di http://localhost:${PORT}`);
-});
+// Oper aplikasi Express ke sistem Vercel agar bisa dijalankan di internet
+module.exports = app;
