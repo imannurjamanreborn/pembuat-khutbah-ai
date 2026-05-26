@@ -9,25 +9,29 @@
         body { background-color: #f8f9fa; font-family: 'Segoe UI', sans-serif; }
         .card { border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
         .khutbah-output { background-color: #fff; border-left: 5px solid #198754; padding: 20px; white-space: pre-line; }
+        
+        /* PENGATURAN CETAK BARU (ANTI SPACE KOSONG) */
         @media print {
-            /* Sembunyikan semua elemen kecuali kotak naskah khutbah */
+            /* Sembunyikan semua elemen bawaan website */
             body * {
-                visibility: hidden;
+                display: none !important;
             }
+            /* Hanya tampilkan naskah khutbah beserta isinya */
             #output, #output * {
-                visibility: visible;
+                display: block !important;
             }
-            /* Atur posisi naskah khutbah agar rapi di kertas/PDF */
+            /* Paksa teks naskah langsung naik ke halaman pertama secara rapi */
             #output {
-                position: absolute;
-                left: 0;
-                top: 0;
-                width: 100%;
-                border-left: none;
+                position: relative !important;
+                width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                border-left: none !important;
                 font-size: 14pt;
                 line-height: 1.8;
                 color: #000;
-                }
+                white-space: pre-line;
+            }
         }
     </style>
 </head>
@@ -58,13 +62,13 @@
                     </select>
                 </div>
                 <div class="mb-3">
-    <label class="form-label">Bahasa Pengantar (Isi)</label>
-    <select id="language" class="form-select">
-        <option value="Indonesia yang santun dan menyentuh hati" selected>Bahasa Indonesia (Santun)</option>
-        <option value="Jawa Kromo (Alus)">Bahasa Jawa (Kromo Alus)</option>
-        <option value="Sunda Lemes">Bahasa Sunda (Lemes)</option>
-    </select>
-</div>
+                    <label class="form-label">Bahasa Pengantar (Isi)</label>
+                    <select id="language" class="form-select">
+                        <option value="Indonesia yang santun dan menyentuh hati" selected>Bahasa Indonesia (Santun)</option>
+                        <option value="Jawa Kromo (Alus)">Bahasa Jawa (Kromo Alus)</option>
+                        <option value="Sunda Lemes">Bahasa Sunda (Lemes)</option>
+                    </select>
+                </div>
 
                 <button onclick="generateKhutbah()" class="btn btn-success w-100 fw-bold py-2">Hasilkan Khutbah ✨</button>
             </div>
@@ -104,7 +108,6 @@
         </div>`;
 
         try {
-            // Kita arahkan fetch ke rute API Vercel (/api/generate)
             const response = await fetch('/api/generate', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
