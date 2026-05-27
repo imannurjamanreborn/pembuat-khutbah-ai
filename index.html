@@ -144,7 +144,49 @@
     }
 
     function printKhutbah() {
-        window.print();
+        const khutbahContent = document.getElementById('output').innerHTML;
+        const tema = document.getElementById('topic').value || 'Naskah Khutbah';
+
+        // Buka jendela baru di browser khusus untuk cetak
+        const printWindow = window.open('', '_blank');
+        
+        // Isi jendela baru tersebut dengan teks khutbah saja tanpa dekorasi web
+        printWindow.document.write(`
+            <html>
+            <head>
+                <title>${tema}</title>
+                <style>
+                    body {
+                        font-family: 'Segoe UI', Arial, sans-serif;
+                        padding: 20px;
+                        line-height: 1.8;
+                        font-size: 14pt;
+                        color: #000;
+                        white-space: pre-line;
+                    }
+                    /* Pengaturan agar teks Arab terbaca rapi dari kanan ke kiri jika diperlukan */
+                    .arabic {
+                        direction: rtl;
+                        font-family: 'Traditional Arabic', 'Scheherazade New', serif;
+                        font-size: 18pt;
+                    }
+                </style>
+            </head>
+            <body>
+                ${khutbahContent}
+                <script>
+                    // Otomatis memicu pop-up cetak setelah halaman siap
+                    window.onload = function() {
+                        window.print();
+                        // Otomatis menutup tab baru setelah selesai cetak/batal
+                        window.onafterprint = function() { window.close(); }
+                    }
+                <\/script>
+            </body>
+            </html>
+        `);
+        
+        printWindow.document.close();
     }
 </script>
 </body>
