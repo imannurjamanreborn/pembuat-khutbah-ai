@@ -17,7 +17,7 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html');
 });
 
-// 2. Endpoint utama pembuat khutbah (Sudah Dikunci Template Syariat & Mukaddimah Sunda)
+// 2. Endpoint utama pembuat khutbah (Sudah Dikunci Template Syariat & Gaya Tafsir Ilmiah)
 app.post('/api/generate', async (req, res) => {
     const { topic, duration, language } = req.body;
 
@@ -26,12 +26,12 @@ app.post('/api/generate', async (req, res) => {
     }
 
     // === TEMPLATE UTAMA KHUTBAH ARAB (DIKUNCI MATI) ===
-    const mukaddimahKhutbah1Arab = `اَلْحَمْدُ لِلّٰهِ رَبِّ الْعَالَمِيْنَ، وَبِهِ نَسْتَعِيْنُ عَلَى أُمُوْرِ الدُّنْيَا وَالدِّيْنِ، وَالصَّلَاةُ وَالسَّلَامُ عَلَى أَشْرَفِ الْأَنْبِيَاءِ وَالْمُرْسَلِيْنَ، نَبِيِّنَا مُحَمَّدٍ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ وَعَلَى آلِهِ وَأَصْحَابِهِ وَالتَّابِعِيْنَ وَمَنْ تَبِعَهُمْ بِإِحْسَانٍ إِلَى يَوْمِ الدِّيْنِ، أَشْهَدُ أَنْ لَا إِلٰهَ إِلَّا اللهُ وَحْدَهُ لَا شَرِيْكَ لَهُ الْمَلِكُ الْحَقُw الْمُبِيْنُ. وَأَشْهَدُ أَنَّ سَيِّدَنَا مُحَمَّدًا عَبْدُهُ وَرَسُوْلُهُ صَادِقُ الْوَعْدِ الْأَمِيْنُ. أَمَّا بَعْدُ فَيَا أَيُّهَا الْحَاضِرُوْنَ اِتَّقُوا اللهَ حَقَّ تُقَاتِهِ وَلَا تَمُوْتُنَّ إِلَّا وَأَنْتُمْ مُسْلِمُوْنَ.`;
+    const mukaddimahKhutbah1Arab = `اَلْحَمْدُ لِلّٰهِ رَبِّ الْعَالَمِيْنَ، وَبِهِ نَسْتَعِيْنُ عَلَى أُمُوْرِ الدُّنْيَا وَالدِّيْنِ، وَالصَّلَاةُ وَالسَّلَامُ عَلَى أَشْرَفِ الْأَنْبِيَاءِ وَالْمُرْسَلِيْنَ، نَبِيِّنَا مُحَمَّدٍ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ وَعَلَى آلِهِ وَأَصْحَابِهِ وَالتَّابِعِيْنَ وَمَنْ تَبِعَهُمْ بِإِحْسَانٍ إِلَى يَوْمِ الدِّيْنِ، أَشْهَدُ أَنْ لَا إِلٰهَ إِلَّا اللهُ وَحْدَهُ لَا شَرِيْكَ لَهُ الْمَلِكُ الْحَقُّ الْمُبِيْنُ. وَأَشْهَدُ أَنَّ سَيِّدَنَا مُحَمَّدًا عَبْدُهُ وَرَسُوْلُهُ صَادِقُ الْوَعْدِ الْأَمِيْنُ. أَمَّا بَعْدُ فَيَا أَيُّهَا الْحَاضِرُوْنَ اِتَّقُوا اللهَ حَقَّ تُقَاتِهِ وَلَا تَمُوْتُنَّ إِلَّا وَأَنْتُمْ مُسْلِمُوْنَ.`;
 
-    const fullKhutbahKedua = `اَلْحَمْدُ لِلّٰهِ عَلَى إِحْسَانِهِ وَالشُّكْرُ لَهُ عَلَى تَوْفِيْقِهِ وَاِمْتِنَانِهِ. وَأَشْهَدُ أَنْ لَا إِلٰهَ إِلَّا اللهُ وَاللهُ وَحْدَهُ لَا شَرِيْكَ لَهُ وَأَشْهَدُ أَنَّ سَيِّدَنَا مُحَمَّدًا عَبْدُهُ وَرَسُوْلُهُ الدَّاعِى إِلَى رِضْوَانِهِ.
+    const fullKhutbahKedua = `اَلْحَمْدُ لِلّٰهِ عَلَى إِحْسَانِهِ وَالشُّكْرُ لَهُ عَلَى tَوْفِيْقِهِ وَاِمْتِنَانِهِ. وَأَشْهَدُ أَنْ لَا إِلٰهَ إِلَّا اللهُ وَاللهُ وَحْدَهُ لَا شَرِيْكَ لَهُ وَأَشْهَدُ أَنَّ سَيِّدَنَا مُحَمَّدًا عَبْدُهُ وَرَسُوْلُهُ الدَّاعِى إِلَى رِضْوَانِهِ.
 اَللّٰهُمَّ صَلِّ عَلَى سَيِّدِنَا مُحَمَّدٍ وَعَلَى آلِهِ وَأَصْحَابِهِ وَسَلِّمْ تَسْلِيْمًا كَثِيْرًا. أَمَّا بَعْدُ
-فَيَا أَيُّهَا النَّاسُ اِتَّقُوا اللهَ فِيْمَا أَمَرَ وَانْتَهُوْا عَمَّا نَهَى وَاعْلَمُوْا أَنَّ اللهَ أَمَرَكُمْ بِأَمْرٍ Bَدَأَ فِيْهِ بِنَفْسِهِ وَثَنَّى بِمَلَائِكَتِهِ بِقُدْسِهِ. وَقَالَ تَعَالَى إِنَّ اللهَ وَمَلَائِكَتَهُ يُصَلُّوْنَ عَلَى النَّبِيِّ يٰأَيُّهَا الَّذِيْنَ آمَنُوْا صَلُّوْا عَلَيْهِ وَسَلِّمُوْا تَسْلِيْمًا.
-اَللّٰهُمَّ اغْفِرْ لِلْمُؤْمِنِيْنَ وَالْمُؤْمِنَاتِ وَالْمُسْلِمِيْنَ وَالْمُسْلِمَاتِ الْأَحْيَاءِ مِنْهُمْ وَالْأَمْوَاتِ. رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ. رَبَّنَا ظَلَمْنَا أَنْفُسَنَا وَإِنْ لَمْ تَغْفِرْ لَنَا وَتَرْحَمْنَا لَنَكُوْنَنَّ مِنَ الْخَاسِرِيْنَ.
+فَيَا أَيُّهَا النَّاسُ اِتَّقُوا اللهَ فِيْمَا أَمَرَ وَانْتَهُوْا عَمَّا نَهَى وَاعْلَمُوْا أَنَّ اللهَ أَمَرَكُمْ بِأَمْرٍ بَدَأَ فِيْهِ بِنَفْسِهِ وَثَنَّى بِمَلَائِكَتِهِ بِقُدْسِهِ. وَقَالَ تَعَالَى إِنَّ اللهَ وَمَلَائِكَتَهُ يُصَلُّوْنَ عَلَى النَّبِيِّ يٰأَيُّهَا الَّذِيْنَ آمَنُوْا صَلُّوْا عَلَيْهِ وَسَلِّمُوْا تَسْلِيْمًا.
+اَللّٰهُمَّ اغْفِر| لِلْمُؤْمِنِيْنَ وَالْمُؤْمِنَاتِ وَالْمُسْلِمِيْنَ وَالْمُسْلِمَاتِ الْأَحْيَاءِ مِنْهُمْ وَالْأَمْوَاتِ. رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ. رَبَّنَا ظَلَمْنَا أَنْفُسَنَا وَإِنْ لَم| تَغْفِرْ لَنَا وَتَرْحَمْنَا لَنَكُوْنَنَّ مِنَ الْخَاسِرِيْنَ.
 عِبَادَ اللهِ! إِنَّ اللهَ يَأْمُرُ بِالْعَدْلِ وَالْإِحْسَانِ وَإِيْتَاءِ ذِي الْقُرْبَى وَيَنْهَى عَنِ الْفَحْشَاءِ وَالْمُنْكَرِ وَالْبَغْيِ يَعِظُكُمْ لَعَلَّكُمْ تَذَكَّرُوْنَ وَاذْكُرُوا اللهَ الْعَظِيْمَ يَذْكُرْكُمْ وَاشْكُرُوْهُ عَلَى نِعَمِهِ يَزِدْكُمْ وَلَذِكْرُ اللهِ أَكْبَرُ.`;
 
     // === TEMPLATE MUKADDIMAH SUNDA KHAS KANG IMAN ===
@@ -43,32 +43,38 @@ Sim Kuring asma'na khotib washiat ku taqwa umum ka sadayana khususna ka diri kho
     const isSunda = language.toLowerCase().includes('sunda');
 
     try {
-        console.log(`AI merangkai materi inti Khutbah Pertama: ${topic} (${language})`);
+        console.log(`AI merangkai materi berbasis tafsir kitab: ${topic} (${language})`);
 
-        // 3. Kondisi Prompt: Jika Sunda, AI dilarang bikin mukaddimah sunda karena sudah ada di template
+        // 3. PROMPT BARU: MENYULAP AI MENJADI ASISTEN TAFSIR ILMIAH STRUKTURAL
         let instruksiTambahan = "";
         if (isSunda) {
-            instruksiTambahan = "Peringatan Khusus: JANGAN membuat pembukaan bahasa Sunda, puji syukur, atau wasiat taqwa sunda lagi karena saya sudah punya template baku yang sangat pas milik saya sendiri.";
+            instruksiTambahan = "Peringatan Khusus: JANGAN membuat pembukaan bahasa Sunda, puji syukur, atau wasiat taqwa sunda lagi karena saya sudah punya template baku milik saya sendiri.";
         } else {
-            instruksiTambahan = `Buatlah mukaddimah pengantar/wasiat taqwa singkat dalam ${language} sebelum masuk ke ayat Al-Qur'an.`;
+            instruksiTambahan = `Buatlah mukaddimah pengantar/wasiat taqwa singkat dalam ${language} sebelum masuk ke ayat Al-Qur'an utama.`;
         }
 
         const promptMateriMurni = `
-          Kamu adalah Ulama dan Khatib jumat profesional senior. Tugasmu HANYA menyusun **Materi Inti / Isi Daging Khutbah Pertama** saja.
+          Kamu adalah seorang Ulama Ahli Peneliti Kitab Tafsir Mutabar khusyuk. Tugasmu HANYA menyusun **Materi Inti / Isi Daging Khutbah Pertama** dumasar rujukan kitab tafsir asli.
           
-          Peringatan Keras: JANGAN menulis Mukaddimah Arab, hamdalah, shalawat, atau wasiat taqwa Arab lagi karena sudah dikunci di sistem. Jangan buat Khutbah Kedua!
+          Peringatan Keras: 
+          - JANGAN menulis Mukaddimah Arab, hamdalah, shalawat, atau wasiat taqwa Arab lagi karena sudah dikunci otomatis di sistem.
+          - JANGAN membuat naskah Khutbah Kedua!
+          - JANGAN gunakan sudut pandang atau perspektif subyektif khotib ("Menurut saya", "Khotib berwasiat", dll). Fokuslah murni menyampaikan isi kutipan riwayat ilmu secara objektif.
           ${instruksiTambahan}
           
-          === DETAIL MATERI YANG WAJIB KAMU BUAT ===
-          1. Satu ayat Al-Qur'an (Teks Arab berharakat + artinya wajib dalam ${language}) yang sangat relevan dengan tema "${topic}".
-          2. Pembahasan materi khutbah secara berbobot, dalam, santun, menyentuh hati, dan khusyuk menggunakan 100% ${language}. Sesuaikan panjangnya untuk durasi ${duration}.
-          3. Berikan kesimpulan singkat sekaligus kalimat penutup khutbah pertama dalam ${language} sebelum khatib duduk di antara dua khutbah.
+          === STRUKTUR WAJIB PENYAJIAN MATERI ===
+          1. Tuliskan 1 Ayat Al-Qur'an utama (Lengkap Teks Arab berharakat + terjemahan artinya wajib dalam ${language}) yang menjadi poros utama tema "${topic}".
+          2. Bedah makna terdalam dari ayat tersebut menggunakan minimal 2-3 pandangan Ulama Tafsir besar secara berurutan (Contoh rujukan: Tafsir al-Qurthubiy, Tafsir al-Baghowiy, Tafsir Ibn Katsir, atau Tafsir al-Jalalain).
+          3. Setiap kali mengutip pandangan ulama tafsir, WAJIB ikuti gaya penulisan ilmiah ini:
+             - Berikan kalimat pengantar penunjuk kitab (Contoh dalam Sunda: "Kasauran/Sakumaha dikutip dina tafsir al-Qurthubiy ngadugikeun...")
+             - Tulis potongan pendek Teks Arab asli dari matan kitab tafsir tersebut (Lengkap dengan harakatnya).
+             - Berikan terjemahan langsung dan penjelasan isi teks Arab tafsir tersebut secara gamblang menggunakan 100% ${language}.
+          4. Berikan kesimpulan akhir (khulashah) yang murni merangkum poin-poin tafsir di atas (dalam ${language}) lalu tutup dengan doa kalimat transisi standar khutbah pertama ("Barakallahu lii wa lakum fil qur'anil 'adzhim...").
           
-          Aturan Bahasa: Jika dipilih 'Sunda Lemes', wajib gunakan bahasa Sunda yang halus/lemes, sopan, dan khidmat. Jika 'Jawa Kromo', gunakan Jawa halus. Jangan campur aduk dengan Bahasa Indonesia!
-          Langsung mulai teks pada inti materi, jangan pakai embel-embel judul 'Materi' atau sejenisnya.
+          Aturan Bahasa: Wajib konsisten menggunakan 100% bahasa ${language} yang halus (lemes), akademik, rapi, dan khidmat untuk bagian penjelasannya. Jangan campur aduk dengan bahasa lain! Langsung mulai teks pada ayat Al-Qur'an utama.
         `;
 
-        // 4. Panggil Gemini AI (Sangat cepat & efisien)
+        // 4. Panggil Gemini AI
         const response = await ai.models.generateContent({
             model: 'gemini-2.5-flash',
             contents: promptMateriMurni,
@@ -79,10 +85,8 @@ Sim Kuring asma'na khotib washiat ku taqwa umum ka sadayana khususna ka diri kho
         // 5. Gabungkan struktur secara runut berdasarkan bahasa pilihan
         let bagianIsiKhutbah1 = "";
         if (isSunda) {
-            // Jika bahasa Sunda, sisipkan template mukaddimah sunda milik Akang sebelum teks AI
             bagianIsiKhutbah1 = `${mukaddimahSundaKhas}\n\n${materiAI}`;
         } else {
-            // Jika bahasa lain, langsung pakai hasil isi dari AI
             bagianIsiKhutbah1 = materiAI;
         }
 
