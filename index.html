@@ -55,6 +55,17 @@
                 <h4 class="mb-3 text-secondary">Pengaturan Khutbah</h4>
                 
                 <div class="mb-3">
+                    <label class="form-label" style="font-weight: bold;">Jenis Acara / Khutbah</label>
+                    <select id="category" class="form-select">
+                        <option value="jumat" selected>Khutbah Jumat</option>
+                        <option value="idul_fitri">Khutbah Idul Fitri</option>
+                        <option value="idul_adha">Khutbah Idul Adha</option>
+                        <option value="nikah">Khutbah Nikah</option>
+                        <option value="ceramah">Ceramah Umum / Kultum</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
                     <label class="form-label">Tema / Topik Khutbah</label>
                     <input type="text" id="topic" class="form-control" placeholder="Contoh: Ketakwaan, Silaturahmi">
                 </div>
@@ -98,6 +109,8 @@
 
 <script>
     async function generateKhutbah() {
+        // Menangkap nilai dari dropdown kategori baru
+        const category = document.getElementById('category').value;
         const topic = document.getElementById('topic').value;
         const duration = document.getElementById('duration').value;
         const language = document.getElementById('language').value;
@@ -110,14 +123,15 @@
 
         outputDiv.innerHTML = `<div class="text-center py-5">
             <div class="spinner-border text-success" role="status"></div>
-            <p class="mt-2 text-success fw-bold">Sedang merangkai naskah khutbah terbaik... Mohon tunggu sebentar...</p>
+            <p class="mt-2 text-success fw-bold">Sedang merangkai naskah terbaik... Mohon tunggu sebentar...</p>
         </div>`;
 
         try {
             const response = await fetch('/api/generate', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ topic, duration, language })
+                // Pastikan 'category' ikut dikirim ke server.js
+                body: JSON.stringify({ topic, duration, language, category })
             });
 
             const data = await response.json();
@@ -126,7 +140,7 @@
                 outputDiv.classList.remove('text-muted');
                 outputDiv.innerHTML = data.khutbah;
             } else {
-                outputDiv.innerHTML = `<span class="text-danger">Gagal menghasilkan khutbah: ${data.error || 'Terjadi kesalahan sistem.'}</span>`;
+                outputDiv.innerHTML = `<span class="text-danger">Gagal menghasilkan naskah: ${data.error || 'Terjadi kesalahan sistem.'}</span>`;
             }
         } catch (error) {
             outputDiv.innerHTML = `<span class="text-danger">Terjadi kesalahan koneksi ke server. Pastikan API Key sudah benar.</span>`;
