@@ -87,7 +87,7 @@
                     </select>
                 </div>
 
-                <button onclick="generateKhutbah()" class="btn btn-success w-100 fw-bold py-2">Hasilkan Khutbah ✨</button>
+                <button onclick="generateKhutbah()" class="btn btn-success w-100 fw-bold py-2">BUAT ✨</button>
             </div>
         </div>
 
@@ -97,6 +97,7 @@
                     <h4 class="text-secondary m-0">Naskah Khutbah</h4>
                     <button onclick="copyToClipboard()" class="btn btn-outline-secondary btn-sm">Salin Teks</button>
                     <button onclick="printKhutbah()" class="btn btn-primary btn-sm">Cetak / PDF 🖨️</button>
+                    <button onclick="bukaTeleprompter()" class="btn btn-dark btn-sm">Mode Mimbar 📱</button>
                 </div>
                 
                 <div id="output" class="khutbah-output text-muted">
@@ -202,6 +203,71 @@
         
         printWindow.document.close();
     }
+
+    /* === LOGIKA FUNGSI JAVASCRIPT TELEPROMPTER === */
+    function bukaTeleprompter() {
+        const naskahAsli = document.getElementById('output').innerHTML;
+        const prompterContent = document.getElementById('prompterContent');
+        const prompterOverlay = document.getElementById('prompterOverlay');
+
+        if (document.getElementById('output').classList.contains('text-muted')) {
+            alert('Silakan hasilkan naskah terlebih dahulu sebelum masuk Mode Mimbar!');
+            return;
+        }
+
+        prompterContent.innerHTML = naskahAsli;
+        prompterOverlay.style.display = 'block';
+        document.body.style.overflow = 'hidden'; 
+        prompterOverlay.scrollTop = 0;
+    }
+
+    function tutupTeleprompter() {
+        stopScroll();
+        document.getElementById('prompterOverlay').style.display = 'none';
+        document.body.style.overflow = 'auto'; 
+    }
+
+    function toggleScroll() {
+        if (isScrolling) {
+            stopScroll();
+        } else {
+            startScroll();
+        }
+    }
+
+    function startScroll() {
+        const overlay = document.getElementById('prompterOverlay');
+        const btn = document.getElementById('btnPlayPause');
+        
+        isScrolling = true;
+        btn.innerText = "Jeda ⏸";
+        btn.classList.replace('btn-success', 'btn-warning');
+
+        scrollInterval = setInterval(() => {
+            overlay.scrollTop += 1;
+        }, 40 / scrollSpeed); 
+    }
+
+    function stopScroll() {
+        const btn = document.getElementById('btnPlayPause');
+        isScrolling = false;
+        btn.innerText = "Mulai ▶";
+        btn.classList.replace('btn-warning', 'btn-success');
+        clearInterval(scrollInterval);
+    }
+
+    function ubahKecepatan(nilai) {
+        scrollSpeed += nilai;
+        if (scrollSpeed < 1) scrollSpeed = 1;
+        if (scrollSpeed > 10) scrollSpeed = 10;
+        
+        document.getElementById('speedIndicator').innerText = `Kec: ${scrollSpeed}`;
+        
+        if (isScrolling) {
+            clearInterval(scrollInterval);
+            startScroll();
+        }
+}        
 </script>
 </body>
 </html>
